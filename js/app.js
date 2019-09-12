@@ -27,10 +27,10 @@ var chartGroup = svg.append("g")
 // Import data from the CSV file
 d3.csv("data/data.csv").then(function (healthData) {
 
-    // Format the data
+    // format the data 
     healthData.forEach(function (data) {
         data.poverty = +data.poverty;
-        data.evening = +data.healthcare;
+        data.healthcare = +data.healthcare;
     });
 
     // Create the scales
@@ -52,7 +52,8 @@ d3.csv("data/data.csv").then(function (healthData) {
         .call(bottomAxis);
 
     // Add y-axis
-    chartGroup.append("g").call(leftAxis);
+    chartGroup.append("g")
+        .call(leftAxis);
 
     // Create circles
     chartGroup.selectAll("circle")
@@ -61,11 +62,11 @@ d3.csv("data/data.csv").then(function (healthData) {
         .append("circle")
         .attr("cx", d => xScale(d.poverty))
         .attr("cy", d => yScale(d.healthcare))
-        .attr("r", 10)
-        .attr("fill", "blue")
-        .attr("opacity", ".5");
+        .attr("r", 9)
+        .attr("fill", "green")
+        .attr("opacity", ".7");
 
-    // Label circles by state
+    // Create circle labels
     chartGroup.selectAll()
         .data(healthData)
         .enter()
@@ -86,7 +87,7 @@ d3.csv("data/data.csv").then(function (healthData) {
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
         .attr('y', 0 - margin.left + 50)
-        .attr("x", 0 - (height / 2))
+        .attr("x", 0 - (height / 2) - 60)
         .attr("class", "axisText")
         .text("Lacks Healthcare (%)");
 
